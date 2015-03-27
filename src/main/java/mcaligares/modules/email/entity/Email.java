@@ -42,7 +42,7 @@ public class Email {
     private String from;
     private String name;
     private String subject;
-    private String message;
+    private String body;
     private List<String> to;
     private List<Attachment> attaches;
     private String htmlFile;
@@ -55,23 +55,23 @@ public class Email {
         this(username, password, from, null, null, null, null, null, null, null, null, null, null, null, null);
     }
 
-    public Email(String username, String password, String from, String subject, String message) throws EmailException,
+    public Email(String username, String password, String from, String subject, String body) throws EmailException,
             InvalidEmailException {
-        this(username, password, from, null, subject, message, null, null, null, null, null, null, null, null, null);
+        this(username, password, from, null, subject, body, null, null, null, null, null, null, null, null, null);
     }
 
-    public Email(String username, String password, String from, String to, String subject, String message)
+    public Email(String username, String password, String from, String to, String subject, String body)
             throws EmailException, InvalidEmailException {
-        this(username, password, from, null, subject, message, null, null, null, null, null, null, null, null, null);
+        this(username, password, from, null, subject, body, null, null, null, null, null, null, null, null, null);
         this.addTo(to);
     }
 
-    public Email(String username, String password, String from, List<String> to, String subject, String message)
+    public Email(String username, String password, String from, List<String> to, String subject, String body)
             throws EmailException, InvalidEmailException {
-        this(username, password, from, to, subject, message, null, null, null, null, null, null, null, null, null);
+        this(username, password, from, to, subject, body, null, null, null, null, null, null, null, null, null);
     }
 
-    private Email(String username, String password, String from, List<String> to, String subject, String message,
+    private Email(String username, String password, String from, List<String> to, String subject, String body,
             String htmlMessage, String name, String hostName, Integer smtpPort, Boolean ssl, Boolean tls,
             Boolean debug, List<Attachment> attaches, String htmlFile) throws EmailException, InvalidEmailException {
         super();
@@ -86,7 +86,7 @@ public class Email {
         this.to = to;
         this.from = from;
         this.name = name;
-        this.message = message;
+        this.body = body;
         this.subject = subject;
         this.username = username;
         this.password = password;
@@ -157,12 +157,12 @@ public class Email {
         this.subject = subject;
     }
 
-    public String getMessage() {
-        return message;
+    public String getBody() {
+        return body;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public Boolean getDebug() {
