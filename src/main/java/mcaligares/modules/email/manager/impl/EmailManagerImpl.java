@@ -79,6 +79,8 @@ public class EmailManagerImpl implements EmailManager {
         //load config properties
         PropertiesConfig.build(new EmailManagerImpl());
 
+        //TODO if file properties in class path exist, load its
+
         //load email properties 
         try {
             emailProperties = PropertiesBuilder.createFromFile(EMAIL_PROPERTIES_FILE);
@@ -146,7 +148,7 @@ public class EmailManagerImpl implements EmailManager {
                 messageBodyPart.setContent(
                         EmailUtils.readFileAsString(email.getHtmlFile()), HTML_MIME_TYPE);
             } else {
-                messageBodyPart.setText(email.getMessage());
+                messageBodyPart.setText(email.getBody());
             }
 
             // Set text message part
@@ -217,6 +219,9 @@ public class EmailManagerImpl implements EmailManager {
                     ? folder.search(email.getFilter().getSearchTerm()) : folder.getMessages();
 
             if (messages != null) {
+                // Reset messages list if exist
+                if (email.getMessages() != null) email.getMessages().clear();
+
                 for (int i = 0; i < messages.length; i++) {
                     Message message = messages[i];
                     email.addMessage(new mcaligares.modules.email.entity.Message(message));
